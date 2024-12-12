@@ -1,0 +1,36 @@
+mark(space). 
+mark(flora). 
+mark(fauna). 
+mark(sport). 
+pos(0). 
+pos(1). 
+pos(2). 
+pos(3). 
+ 
+unique(Var1, Var2, Var3, Var4) :- 
+ not(Var1 = Var2), not(Var1 = Var3), not(Var1 = Var4), 
+ not(Var2 = Var3), not(Var2 = Var4), 
+ not(Var3 = Var4). 
+ 
+positia_kosmosa(Result, WolfMark, WolfPos, NifMark, NifPos, NyfMark, NyfPos, NafMark, NafPos) :- 
+ WolfMark = space, Result = WolfPos; 
+  NafMark = space, Result = NafPos; 
+ NyfMark = space, Result = NyfPos. 
+ 
+reshenie(WolfMark, WolfPos, NifMark, NifPos, NyfMark, NyfPos, NafMark, NafPos):- 
+ mark(WolfMark), pos(WolfPos), 
+ mark(NifMark), pos(NifPos), 
+ mark(NyfMark), pos(NyfPos), 
+ mark(NafMark), pos(NafPos), 
+ unique(WolfMark, NifMark, NyfMark, NafMark), 
+ unique(WolfPos, NifPos, NyfPos, NafPos), 
+ 
+ WolfMark = fauna, 
+ not(NyfMark = sport), 
+ 
+ positia_kosmosa(PositiaKosmosa, WolfMark, WolfPos, NifMark, NifPos, NyfMark, NyfPos, NafMark, NafPos), 
+  NifPos is (PositiaKosmosa + 1) mod 4, 
+ 
+ NyfPos is (NafPos + 2) mod 4, 
+ 
+ WolfPos is (NafPos - 1) mod 4.
